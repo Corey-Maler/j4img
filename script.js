@@ -31,11 +31,8 @@ var off = function(e) {
   return false;
 }
 
-if (bod.data.img) {
-  alert('два хуя тебе!');
-}
 
-if (bod.getAttribute('data-img') === "") {
+if (imgs.getAttribute('data-src') === "") {
   alert('хуй тебе');
 }
 console.log(imgs.src);
