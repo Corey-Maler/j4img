@@ -9,13 +9,19 @@
 
   <body>
     <div class="editor" data-img="">
+      <div class="dropzone" id="drop-zone">
+        <p>
+          Drop file here<br />
+          <small>or just click</small>
+        </p>
+      </div>
       <b onclick="bod.className = 'editor on'">edit</b>
       <div class="big">
         <div class="prev_c">
           <img id="canv_prev" class="prev hidden" draggable="false" src="/img.png" />
         </div>
         <div class="container" draggable="false">
-          <img id="canv" src="/img.png" data-src="" draggable="false"/>
+          <img id="canv" src="/" data-src="" draggable="false"/>
           <img id="canv" src="" draggable="false"/>
           <div id="left" class="left"></div>
           <div id="bottom" class="bottom"></div>
@@ -25,6 +31,7 @@
       </div>
       <a onclick="off()" class="apply">Save</a>
     </div>
+    <input type="file" id="files" name="files[]" />
   </body>
 
   <style>
@@ -35,16 +42,9 @@
   }
 </style>
 
-<input type="file" id="files" name="files[]" multiple />
+
 <output id="list"></output>
 
-
-<div id="drop_zone">Drop files here</div>
-<output id="list"></output>
-
-<script>
-
-</script>
 <script src="/script.js">
 </script>
 </html>

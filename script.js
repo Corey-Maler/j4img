@@ -33,7 +33,7 @@ var off = function(e) {
 
 
 if (imgs.getAttribute('data-src') === "") {
-  alert('хуй тебе');
+//  alert('хуй тебе');
 }
 console.log(imgs.src);
 
@@ -144,6 +144,7 @@ function handleFileSelect(evt) {
         // Render thumbnail.
         // try to insert in ours img
         imgs.src = e.target.result;
+        hideDropzone();
       };
     })(f);
 
@@ -154,7 +155,7 @@ function handleFileSelect(evt) {
 
 document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
-function handleFileSelect(evt) {
+function handleFileSelects(evt) {
   evt.stopPropagation();
   evt.preventDefault();
 
@@ -176,6 +177,7 @@ function handleFileSelect(evt) {
                 // Render thumbnail.
                 // try to insert in ours img
                 imgs.src = e.target.result;
+                hideDropzone();
               };
             })(f);
 
@@ -186,15 +188,32 @@ function handleFileSelect(evt) {
 }
 
 function handleDragOver(evt) {
+  dropzone.children[0].innerHTML = "Drop file";
   evt.stopPropagation();
   evt.preventDefault();
   evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
 }
 
+function handleDragLeave(evt) {
+  dropzone.children[0].innerHTML = "Drop file here<br /><small>Or just click</small>";
+}
+
 // Setup the dnd listeners.
-var dropZone = document.getElementById('drop_zone');
+var dropZone = document.getElementById('drop-zone');
 dropZone.addEventListener('dragover', handleDragOver, false);
-dropZone.addEventListener('drop', handleFileSelect, false);
+dropZone.addEventListener('drop', handleFileSelects, false);
+dropZone.addEventListener('dragleave', handleDragLeave, false);
+
+
+
+
+var dropzone = document.getElementsByClassName('dropzone')[0];
+dropzone.onclick = function() {
+  document.getElementById('files').click();
+}
+var hideDropzone = function() {
+  dropzone.style.display = 'none';
+}
 
 // http://www.html5rocks.com/en/tutorials/file/dndfiles/
 // тут еще спиздить загрузку файла. Но это потом.

@@ -56,6 +56,9 @@ b:hover {
   opacity: 1;
 }
 
+img {
+  border: none;
+}
 
 .container {
   /* pointer-events: none; */
@@ -163,4 +166,37 @@ a {
 
 a:hover {
   color: #fff;
+}
+
+.dropzone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  z-index: 6;
+  font-size: 18px;
+  border: 1px solid #eee;
+  color: #888;
+
+}
+
+.dropzone:hover {
+  color: #333;
+  cursor: pointer;
+}
+
+.dropzone p{
+  margin-top: 50%;
+  display: block;
+  /position: absolute;
+  text-align: center;
+  transform: translateY(-50%);
+    pointer-events: none;
+}
+
+input {
+  /* сука тупая */
+  /* opacity: 0; */
 }
