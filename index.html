@@ -8,14 +8,15 @@
 </head>
 
   <body>
-    <div class="editor">
+    <div class="editor" data-img="">
       <b onclick="bod.className = 'editor on'">edit</b>
       <div class="big">
         <div class="prev_c">
           <img id="canv_prev" class="prev hidden" draggable="false" src="/img.png" />
         </div>
         <div class="container" draggable="false">
-          <img id="canv" src="/img.png" draggable="false"/>
+          <!-- <img id="canv" src="/img.png" draggable="false"/> -->
+          <img id="canv" src="" draggable="false"/>
           <div id="left" class="left"></div>
           <div id="bottom" class="bottom"></div>
         </div>
@@ -42,7 +43,7 @@
 <output id="list"></output>
 
 <script>
-  
+
 </script>
 <script src="/script.js">
 </script>

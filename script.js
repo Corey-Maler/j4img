@@ -31,6 +31,15 @@ var off = function(e) {
   return false;
 }
 
+if (bod.data.img) {
+  alert('два хуя тебе!');
+}
+
+if (bod.getAttribute('data-img') === "") {
+  alert('хуй тебе');
+}
+console.log(imgs.src);
+
 imgs.draggable = false;
 var isDragX = false;
 var isDragY = false;
