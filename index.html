@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>
+  j4img
+</title>
+<link href="/style.css" rel="stylesheet" />
+</head>
+
+  <body>
+    <b onclick="bod.className = 'editor on'">edit</b>
+    <div class="editor">
+      <div class="big">
+        <img id="canv_prev" class="prev hidden" draggable="false" src="/img.png" />
+        <div class="container" draggable="false">
+          <img id="canv" src="/img.png" draggable="false"/>
+          <div id="left" class="left"></div>
+          <div id="bottom" class="bottom"></div>
+        </div>
+        <div id="bla">
+        </div>
+      </div>
+      <a onclick="off()" class="apply">Save</a>
+    </div>
+  </body>
+  <script src="/script.js">
+  </script>
+</html>
