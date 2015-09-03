@@ -3,149 +3,8 @@
 
 
 /*
-var leftArrow = document.getElementById('left');
-
-for (var i in stylesheet.leftArrow){
-  leftArrow.style[i] = stylesheet.leftArrow[i];
-}
-
-var bottomArrow = document.getElementById('bottom');
-var imgs = document.getElementById('canv');
-var bod = document.getElementsByClassName('editor')[0];
-var imm = document.getElementById('canv_prev');
-var cont = document.getElementsByClassName('container')[0];
-
-var bodr = document.getElementsByTagName('body')[0];
-
-var off = function(e) {
-  bod.className = "editor";
-  console.log('fuck of');
-  return false;
-}
 
 
-if (imgs.getAttribute('data-src') === "") {
-//  alert('хуй тебе');
-}
-console.log(imgs.src);
-
-imgs.draggable = false;
-var isDragX = false;
-var isDragY = false;
-var isMove = false;
-var oldX = 0;
-var oldY = 0;
-
-var left = 0;
-var width = 800;
-var minwidth = 520;
-
-var height = 600;
-var topa = 0;
-var minheight = 520;
-
-cont.onmousedown = function(e) {
-  isMove = true;
-  oldX = e.clientX;
-  oldY = e.clientY;
-  imm.className = "prev";
-  e.stopPropagation();
-}
-
-leftArrow.onmousedown = function(e) {
-  isDragX = true;
-  console.log(e);
-  oldX = e.clientX;
-  imm.className = "prev";
-  e.stopPropagation();
-}
-
-bottomArrow.onmousedown = function(e) {
-  isDragY = true;
-  oldY = e.clientY;
-  imm.className = "prev";
-  e.stopPropagation();
-}
-
-bodr.onmouseup = function() {
-  isDragX = false;
-  isDragY = false;
-  isMove = false;
-  imm.className = "prev hidden";
-}
-
-bodr.onmousemove = function(e) {
-  //console.log('mouse move');
-  if (isDragX) {
-    var dx = e.clientX - oldX;
-    oldX = e.clientX;
-    width = Math.max(minwidth - left, width - dx);
-    //width = Math.max(width)
-    imgs.style.width = width + 'px';
-    imm.style.width = width + 'px';
-  }
-
-  if (isDragY) {
-    var dy = e.clientY - oldY;
-    oldY = e.clientY;
-    height = Math.max(minheight - topa, height - dy);
-    //width = Math.max(width)
-    imgs.style.height = height + 'px';
-    imm.style.height = height + 'px';
-  }
-
-  if (isMove) {
-    var dx = e.clientX - oldX;
-    oldX = e.clientX;
-    var dy = e.clientY - oldY;
-    oldY = e.clientY;
-
-    //console.log(dx);
-    left = Math.min(0, left + dx);
-    left = Math.max(- (width - minwidth), left);
-
-    //console.log(dy);
-    topa = Math.min(0, topa + dy);
-    topa = Math.max(- (height - minheight), topa);
-
-    //console.log(topa);
-
-    imgs.style.left = left + 'px';
-    imm.style.left = 0 + left + 'px';
-    imgs.style.top = topa + 'px';
-    imm.style.top = 0 + topa + 'px';
-  }
-}
-
-function handleFileSelect(evt) {
-  var files = evt.target.files; // FileList object
-
-  // Loop through the FileList and render image files as thumbnails.
-  for (var i = 0, f; f = files[i]; i++) {
-
-    // Only process image files.
-    if (!f.type.match('image.*')) {
-      continue;
-    }
-
-    var reader = new FileReader();
-
-    // Closure to capture the file information.
-    reader.onload = (function(theFile) {
-      return function(e) {
-        // Render thumbnail.
-        // try to insert in ours img
-        imgs.src = e.target.result;
-        hideDropzone();
-      };
-    })(f);
-
-    // Read in the image file as a data URL.
-    reader.readAsDataURL(f);
-  }
-}
-
-document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
 function handleFileSelects(evt) {
   evt.stopPropagation();
@@ -215,6 +74,8 @@ var createElement = function(p, className) {
   return node;
 }
 
+var welcomeHTML = "Drag and drop your image here<br /><small>or just click here</small>";
+
 window.j4img = function(img_dom) {
   console.group('j4img init');
   console.log('img_dom', img_dom);
@@ -226,13 +87,205 @@ window.j4img = function(img_dom) {
   //Editor.appendChild(img_dom);
   // TODO: inheret from image params
 
-  Parent.appendChild(Editor);
+  /// if not img.data-src
 
   var Dropzone = createElement('div', 'dropzone');
+  var DropzoneLabel = createElement('p', 'dropzone__p');
+  DropzoneLabel.innerHTML = welcomeHTML;
+  Dropzone.appendChild(DropzoneLabel);
+  if (1 || false) {
+    Editor.appendChild(Dropzone);
+  }
 
-  Editor.appendChild(Dropzone);
+  var EditButton = createElement('b', 'edit_button');
+  EditButton.innerHTML = "Edit";
+  Editor.appendChild(EditButton);
+
+  var Big = createElement('div', 'big');
+  var PrevContainer = createElement('div', 'prev__container');
+  var ImgPrev = createElement('img', 'prev hidden')
+  ImgPrev.draggable = false;
+  ImgPrev.src = 'img.png';
+  PrevContainer.appendChild(ImgPrev);
+  Big.appendChild(PrevContainer);
+  this.ImgPrev = ImgPrev;
+
+  var Container = createElement('div', 'container');
+  var Img = img_dom;
+  Img.draggable = false;
+  Container.appendChild(Img)
+  this.Img = Img;
+
+  var LeftDrag = createElement('div', 'left');
+  var BottomDrag = createElement('div', 'bottom');
+  Container.appendChild(LeftDrag);
+  Container.appendChild(BottomDrag);
+  Big.appendChild(Container);
+
+  Big.appendChild(createElement('div', 'bla'));
+
+  var ApplyButton = createElement('b', 'apply_button');
+  ApplyButton.innerHTML = 'Save';
+
+  Big.appendChild(ApplyButton);
+
+  var FileUploader = createElement('input', 'file_upload');
+  FileUploader.setAttribute('type', 'file');
+
+  Editor.appendChild(FileUploader);
+  Editor.appendChild(Big);
+  Parent.appendChild(Editor);
 
   console.groupEnd();
+
+  console.group('j4img vars');
+  var editMode = false;
+  var isDragX = false;
+  var isDragY = false;
+  var isMove = false;
+  var oldX = 0;
+  var oldY = 0;
+
+  var left = 0;
+  var width = 800;
+  var minwidth = 520;
+
+  var height = 600;
+  var topa = 0;
+  var minheight = 520;
+  console.groupEnd();
+
+  console.group('j4img logic');
+  // select file
+  Dropzone.onclick = function() { FileUploader.click(); };
+
+
+
+  FileUploader.addEventListener('change', handleFileSelect, false);
+
+  EditButton.onclick = on;
+  ApplyButton.onclick = off;
+
+  LeftDrag.onmousedown = function(e) {
+    isDragX = true;
+    console.log(e);
+    oldX = e.clientX;
+    ImgPrev.className = "j4img_prev";
+    e.stopPropagation();
+  }
+
+  BottomDrag.onmousedown = function(e) {
+    isDragY = true;
+    oldY = e.clientY;
+    ImgPrev.className = "j4img_prev";
+    e.stopPropagation();
+  }
+
+  Container.onmousedown = function(e) {
+    if (editMode) {
+      isMove = true;
+      oldX = e.clientX;
+      oldY = e.clientY;
+      ImgPrev.className = "j4img_prev";
+      e.stopPropagation();
+    }
+  }
+
+  var bodr = document.getElementsByTagName('body')[0];
+  bodr.onmousemove = function(e) {
+    //console.log('mouse move');
+    if (isDragX) {
+      var dx = e.clientX - oldX;
+      oldX = e.clientX;
+      width = Math.max(minwidth - left, width - dx);
+      //width = Math.max(width)
+      Img.style.width = width + 'px';
+      ImgPrev.style.width = width + 'px';
+    }
+
+    if (isDragY) {
+      var dy = e.clientY - oldY;
+      oldY = e.clientY;
+      height = Math.max(minheight - topa, height - dy);
+      //width = Math.max(width)
+      Img.style.height = height + 'px';
+      ImgPrev.style.height = height + 'px';
+    }
+
+    if (isMove) {
+      var dx = e.clientX - oldX;
+      oldX = e.clientX;
+      var dy = e.clientY - oldY;
+      oldY = e.clientY;
+
+      //console.log(dx);
+      left = Math.min(0, left + dx);
+      left = Math.max(- (width - minwidth), left);
+
+      //console.log(dy);
+      topa = Math.min(0, topa + dy);
+      topa = Math.max(- (height - minheight), topa);
+
+      //console.log(topa);
+
+      Img.style.left = left + 'px';
+      ImgPrev.style.left = left + 'px';
+      Img.style.top = topa + 'px';
+      ImgPrev.style.top = topa + 'px';
+    }
+  }
+
+  bodr.onmouseup = function() {
+    isDragX = false;
+    isDragY = false;
+    isMove = false;
+    ImgPrev.className = "j4img_prev hidden";
+  }
+
+
+  console.groupEnd();
+
+  // defenitions
+  function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        continue;
+      }
+      var reader = new FileReader();
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          // try to insert in ours img
+          Img.src = e.target.result;
+          ImgPrev.src = e.target.result;
+          hideDropzone();
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+  }
+
+  function hideDropzone() { Dropzone.style.display = 'none'; }
+
+  function on() {
+    editMode = true;
+    Editor.className = 'j4img_editor on';
+    LeftDrag.style.display = 'block';
+    BottomDrag.style.display = 'block';
+  }
+
+  function off() {
+    editMode = false;
+    Editor.className = 'j4img_editor';
+    LeftDrag.style.display = 'none';
+    BottomDrag.style.display = 'none';
+  }
 }
 
 })();

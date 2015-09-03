@@ -14,17 +14,7 @@ body {
     transition: all .5s ease;
 }
 
-.leftArrow {
-    position: absolute;
-    right: 0;
-    width: 5px;
-    bottom: 0;
-    top: 0;
-    background: rgba(0, 0, 0, .3);
-    cursor: col-resize;
-}
-
-b {
+.j4img_editor .j4img_edit_button {
   position: absolute;
   z-index: 5;
   bottom: 0;
@@ -39,20 +29,20 @@ b {
   transition: bottom 1s ease;
 }
 
-b:hover {
+.j4img_editor .j4img_edit_button {
   background: rgba(0,0,0,.8);
 }
 
-.j4img-editor.on b {
+.j4img_editor.on .j4img_edit_button {
   bottom: -20px;
 }
 
-.j4img-editor.on {
+.j4img_editor.on {
   background: #666;
   height: 570px;
 }
 
-#bla {
+.j4img_bla {
   position: absolute;
   top: 0;
   left: 0;
@@ -63,7 +53,7 @@ b:hover {
   opacity: 0;
 }
 
-.editor.on #bla {
+.j4img_editor.on .j4img_bla {
   opacity: 1;
 }
 
@@ -71,7 +61,7 @@ img {
   border: none;
 }
 
-.container {
+.j4img_container {
   /* pointer-events: none; */
     -webkit-user-select: none;
   -khtml-user-select: none;
@@ -89,11 +79,11 @@ img {
   z-index: 4;
 }
 
-.editor.on .container {
+.j4img_editor.on .j4img_container {
   transform: scale(.8);
 }
 
-.container img {
+.j4img_container img {
   pointer-events: none;
     -webkit-user-select: none;
   -khtml-user-select: none;
@@ -109,7 +99,7 @@ img {
 
 
 
-.prev_c {
+.j4img_prev__container {
   transform: scale(.8);
   position: absolute;
   top: 0px;
@@ -119,7 +109,7 @@ img {
   z-index: 1;
 }
 
-.prev
+.j4img_prev
 {
   pointer-events: none;
    -webkit-user-select: none;
@@ -135,11 +125,22 @@ img {
   transition: opacity .3s ease;
 }
 
-.hidden {
+.j4img_prev.hidden {
   opacity: 0;
 }
 
-.bottom {
+.j4img_left {
+    position: absolute;
+    right: 0;
+    width: 5px;
+    bottom: 0;
+    top: 0;
+    background: rgba(0, 0, 0, .3);
+    cursor: col-resize;
+  display: none;
+}
+
+.j4img_bottom {
   position: absolute;
   bottom: 0;
   left: 0px;
@@ -147,9 +148,10 @@ img {
   right: 0;
   background: rgba(0, 0, 0, .3);
   cursor: row-resize;
+  display: none;
 }
 
-a {
+.j4img_apply_button {
   color: #666;
   position: absolute;
   bottom: 10px;
@@ -165,7 +167,7 @@ a {
   cursor: pointer;
 }
 
-a:hover {
+.j4img_apply_button:hover {
   color: #fff;
 }
 .j4img_dropzone {
@@ -186,16 +188,16 @@ a:hover {
   cursor: pointer;
 }
 
-.dropzone p{
+.j4img_dropzone p{
   margin-top: 50%;
   display: block;
-  /position: absolute;
   text-align: center;
   transform: translateY(-50%);
-    pointer-events: none;
+  pointer-events: none;
 }
 
-input {
+.j4img_file_upload {
   /* сука тупая */
   /* opacity: 0; */
+  display: none;
 }
