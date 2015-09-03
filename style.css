@@ -3,14 +3,25 @@ body {
   margin: 0;
 }
 
-.editor {
-  position: relative;
-  margin-left: 100px;
-  margin-top: 10px;
-  width: 520px;
-  height: 520px;
-  overflow: hidden;
-  transition: all .5s ease;
+  
+.j4img_editor {
+    position: relative;
+    margin-left: 100px;
+    margin-top: 10px;
+    width: 520px;
+    height: 520px;
+    overflow: hidden;
+    transition: all .5s ease;
+}
+
+.leftArrow {
+    position: absolute;
+    right: 0;
+    width: 5px;
+    bottom: 0;
+    top: 0;
+    background: rgba(0, 0, 0, .3);
+    cursor: col-resize;
 }
 
 b {
@@ -32,11 +43,11 @@ b:hover {
   background: rgba(0,0,0,.8);
 }
 
-.editor.on b {
+.j4img-editor.on b {
   bottom: -20px;
 }
 
-.editor.on {
+.j4img-editor.on {
   background: #666;
   height: 570px;
 }
@@ -96,17 +107,7 @@ img {
   height: 600px;
 }
 
-/*
-.container .left {
-  position: absolute;
-  right: 0;
-  width: 5px;
-  bottom: 0px;
-  top: 0px;
-  background: rgba(0, 0, 0, .3);
-  cursor: col-resize;
-}
-*/
+
 
 .prev_c {
   transform: scale(.8);
@@ -167,8 +168,7 @@ a {
 a:hover {
   color: #fff;
 }
-
-.dropzone {
+.j4img_dropzone {
   position: absolute;
   top: 0;
   left: 0;
@@ -179,10 +179,9 @@ a:hover {
   font-size: 18px;
   border: 1px solid #eee;
   color: #888;
-
 }
 
-.dropzone:hover {
+.j4img_dropzone:hover {
   color: #333;
   cursor: pointer;
 }

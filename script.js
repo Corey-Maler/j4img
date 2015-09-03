@@ -1,16 +1,8 @@
-var stylesheet = {
-  'leftArrow': {
-    position: 'absolute',
-    right: 0,
-    width: '5px',
-    bottom: 0,
-    top: 0,
-    background: 'rgba(0, 0, 0, .3)',
-    cursor: 'col-resize'
-  }
-}
+(function() {
 
 
+
+/*
 var leftArrow = document.getElementById('left');
 
 for (var i in stylesheet.leftArrow){
@@ -215,6 +207,35 @@ var hideDropzone = function() {
   dropzone.style.display = 'none';
 }
 
+*/
+
+var createElement = function(p, className) {
+  var node = document.createElement(p);
+  node.className = "j4img_"+className;
+  return node;
+}
+
+window.j4img = function(img_dom) {
+  console.group('j4img init');
+  console.log('img_dom', img_dom);
+
+  var Parent = img_dom.parentNode;
+  Parent.removeChild(img_dom);
+
+  var Editor = createElement('div', 'editor');
+  //Editor.appendChild(img_dom);
+  // TODO: inheret from image params
+
+  Parent.appendChild(Editor);
+
+  var Dropzone = createElement('div', 'dropzone');
+
+  Editor.appendChild(Dropzone);
+
+  console.groupEnd();
+}
+
+})();
 // http://www.html5rocks.com/en/tutorials/file/dndfiles/
 // тут еще спиздить загрузку файла. Но это потом.
 

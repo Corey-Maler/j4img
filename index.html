@@ -8,7 +8,8 @@
 </head>
 
   <body>
-    <div class="editor" data-img="">
+    <!--
+    ---------<div class="editor" data-img="">
       <div class="dropzone" id="drop-zone">
         <p>
           Drop file here<br />
@@ -22,7 +23,6 @@
         </div>
         <div class="container" draggable="false">
           <img id="canv" src="/" data-src="" draggable="false"/>
-          <img id="canv" src="" draggable="false"/>
           <div id="left" class="left"></div>
           <div id="bottom" class="bottom"></div>
         </div>
@@ -30,21 +30,19 @@
         </div>
       </div>
       <a onclick="off()" class="apply">Save</a>
-    </div>
+    ------</div>
     <input type="file" id="files" name="files[]" />
+  -->
+
+    <img id="canv" src="/" data-src="" draggable="false"/>
   </body>
-
-  <style>
-  .thumb {
-    height: 75px;
-    border: 1px solid #000;
-    margin: 10px 5px 0 0;
-  }
-</style>
-
 
 <output id="list"></output>
 
 <script src="/script.js">
+</script>
+<script>
+   var img_dom = document.getElementById('canv');
+   j4img(img_dom);
 </script>
 </html>
