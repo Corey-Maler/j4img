@@ -4,19 +4,41 @@ body {
 }
 
 .editor {
-  position: absolute;
-  top: 20px;
-  margin-left: -500px;
-  left: 50%;
-  width: 1000px;
+  position: relative;
+  margin-left: 100px;
+  margin-top: 10px;
+  width: 520px;
   height: 520px;
   overflow: hidden;
   transition: all .5s ease;
 }
 
+b {
+  position: absolute;
+  z-index: 5;
+  bottom: 0;
+  color: #aaa;
+  font-weight: 100;
+  font-family: 'Helvetica Neue';
+  display: block;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  background: rgba(0,0,0,.3);
+  transition: bottom 1s ease;
+}
+
+b:hover {
+  background: rgba(0,0,0,.8);
+}
+
+.editor.on b {
+  bottom: -20px;
+}
+
 .editor.on {
   background: #666;
-  height: 650px;
+  height: 570px;
 }
 
 #bla {
@@ -44,7 +66,7 @@ body {
   user-select: none;
   position: absolute;
   top: 0px;
-  left: 240px;
+  left: 0px;
   width: 520px;
   height: 520px;
   overflow: hidden;
@@ -54,7 +76,7 @@ body {
 }
 
 .editor.on .container {
-  top: 50px;
+  transform: scale(.8);
 }
 
 .container img {
@@ -81,6 +103,16 @@ body {
   cursor: col-resize;
 }
 
+.prev_c {
+  transform: scale(.8);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 520px;
+  height: 520px;
+  z-index: 1;
+}
+
 .prev
 {
   pointer-events: none;
@@ -90,8 +122,8 @@ body {
   -o-user-select: none;
   user-select: none;
   position: absolute;
-  top: 50px;
-  left: 240px;
+  top: 0px;
+  left: 0px;
   width: 800px;
   height: 600px;
   transition: opacity .3s ease;

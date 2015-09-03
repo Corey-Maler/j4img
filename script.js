@@ -5,6 +5,8 @@ var bod = document.getElementsByClassName('editor')[0];
 var imm = document.getElementById('canv_prev');
 var cont = document.getElementsByClassName('container')[0];
 
+var bodr = document.getElementsByTagName('body')[0];
+
 var off = function(e) {
   bod.className = "editor";
   console.log('fuck of');
@@ -49,14 +51,14 @@ bottomArrow.onmousedown = function(e) {
   e.stopPropagation();
 }
 
-bod.onmouseup = function() {
+bodr.onmouseup = function() {
   isDragX = false;
   isDragY = false;
   isMove = false;
   imm.className = "prev hidden";
 }
 
-bod.onmousemove = function(e) {
+bodr.onmousemove = function(e) {
   //console.log('mouse move');
   if (isDragX) {
     var dx = e.clientX - oldX;
@@ -93,8 +95,8 @@ bod.onmousemove = function(e) {
     //console.log(topa);
 
     imgs.style.left = left + 'px';
-    imm.style.left = 240 + left + 'px';
+    imm.style.left = 0 + left + 'px';
     imgs.style.top = topa + 'px';
-    imm.style.top = 50 + topa + 'px';
+    imm.style.top = 0 + topa + 'px';
   }
 }

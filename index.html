@@ -8,10 +8,12 @@
 </head>
 
   <body>
-    <b onclick="bod.className = 'editor on'">edit</b>
     <div class="editor">
+      <b onclick="bod.className = 'editor on'">edit</b>
       <div class="big">
-        <img id="canv_prev" class="prev hidden" draggable="false" src="/img.png" />
+        <div class="prev_c">
+          <img id="canv_prev" class="prev hidden" draggable="false" src="/img.png" />
+        </div>
         <div class="container" draggable="false">
           <img id="canv" src="/img.png" draggable="false"/>
           <div id="left" class="left"></div>
