@@ -181,6 +181,7 @@ img {
   font-size: 18px;
   border: 1px solid #eee;
   color: #888;
+  transition: opacity .5s ease;
 }
 
 .j4img_dropzone:hover {

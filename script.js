@@ -1,73 +1,4 @@
 (function() {
-
-
-
-/*
-
-
-
-function handleFileSelects(evt) {
-  evt.stopPropagation();
-  evt.preventDefault();
-
-  var files = evt.dataTransfer.files; // FileList object.
-
-  // files is a FileList of File objects. List some properties.
-  var output = [];
-  for (var i = 0, f; f = files[i]; i++) {
-    output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                f.size, ' bytes, last modified: ',
-                f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-                '</li>');
-
-            var reader = new FileReader();
-
-            // Closure to capture the file information.
-            reader.onload = (function(theFile) {
-              return function(e) {
-                // Render thumbnail.
-                // try to insert in ours img
-                imgs.src = e.target.result;
-                hideDropzone();
-              };
-            })(f);
-
-                // Read in the image file as a data URL.
-            reader.readAsDataURL(f);
-  }
-  document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-}
-
-function handleDragOver(evt) {
-  dropzone.children[0].innerHTML = "Drop file";
-  evt.stopPropagation();
-  evt.preventDefault();
-  evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
-}
-
-function handleDragLeave(evt) {
-  dropzone.children[0].innerHTML = "Drop file here<br /><small>Or just click</small>";
-}
-
-// Setup the dnd listeners.
-var dropZone = document.getElementById('drop-zone');
-dropZone.addEventListener('dragover', handleDragOver, false);
-dropZone.addEventListener('drop', handleFileSelects, false);
-dropZone.addEventListener('dragleave', handleDragLeave, false);
-
-
-
-
-var dropzone = document.getElementsByClassName('dropzone')[0];
-dropzone.onclick = function() {
-  document.getElementById('files').click();
-}
-var hideDropzone = function() {
-  dropzone.style.display = 'none';
-}
-
-*/
-
 var createElement = function(p, className) {
   var node = document.createElement(p);
   node.className = "j4img_"+className;
@@ -243,6 +174,52 @@ window.j4img = function(img_dom) {
   }
 
 
+  function handleFileSelects(evt) {
+    evt.stopPropagation();
+    evt.preventDefault();
+
+    var files = evt.dataTransfer.files; // FileList object.
+
+    // files is a FileList of File objects. List some properties.
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+      /*
+      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
+                  f.size, ' bytes, last modified: ',
+                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
+                  '</li>');
+      */
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+            Img.src = e.target.result;
+            ImgPrev.src = e.target.result;
+            hideDropzone();
+          };
+        })(f);
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+  }
+
+  function handleDragOver(evt) {
+    DropzoneLabel.innerHTML = "Drop file";
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+  }
+
+  function handleDragLeave(evt) {
+    DropzoneLabel.innerHTML = "Drop file here<br /><small>Or just click</small>";
+  }
+
+  Dropzone.addEventListener('dragover', handleDragOver, false);
+  Dropzone.addEventListener('drop', handleFileSelects, false);
+  Dropzone.addEventListener('dragleave', handleDragLeave, false);
+
+
   console.groupEnd();
 
   // defenitions
@@ -271,7 +248,12 @@ window.j4img = function(img_dom) {
     }
   }
 
-  function hideDropzone() { Dropzone.style.display = 'none'; }
+  function hideDropzone() {
+    Dropzone.style.opacity = 0;
+    setTimeout(function() {
+      Dropzone.style.display = 'none';
+    }, 500);
+  }
 
   function on() {
     editMode = true;
