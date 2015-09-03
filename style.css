@@ -93,6 +93,7 @@ b:hover {
   height: 600px;
 }
 
+/*
 .container .left {
   position: absolute;
   right: 0;
@@ -102,6 +103,7 @@ b:hover {
   background: rgba(0, 0, 0, .3);
   cursor: col-resize;
 }
+*/
 
 .prev_c {
   transform: scale(.8);

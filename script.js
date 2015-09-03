@@ -1,4 +1,22 @@
+var stylesheet = {
+  'leftArrow': {
+    position: 'absolute',
+    right: 0,
+    width: '5px',
+    bottom: 0,
+    top: 0,
+    background: 'rgba(0, 0, 0, .3)',
+    cursor: 'col-resize'
+  }
+}
+
+
 var leftArrow = document.getElementById('left');
+
+for (var i in stylesheet.leftArrow){
+  leftArrow.style[i] = stylesheet.leftArrow[i];
+}
+
 var bottomArrow = document.getElementById('bottom');
 var imgs = document.getElementById('canv');
 var bod = document.getElementsByClassName('editor')[0];
