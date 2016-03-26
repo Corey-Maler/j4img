@@ -3,6 +3,7 @@
     height: 100%;
     position: relative;
     border: 1px solid #eee;
+    overflow: hidden;
 }
 
 :local .welcome {

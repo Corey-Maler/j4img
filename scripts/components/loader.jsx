@@ -17,6 +17,28 @@ export default class DragLoader extends Component {
     this.refs.fileInput.click();
   }
   
+  onDrop(e) {
+    e.preventDefault();
+      
+    const droppedFiles = e.dataTransfer ? e.dataTransfer.files : e.target.files;
+    const max = this.props.multiple ? droppedFiles.length : 1;
+    // if max > 1 ...
+
+    // in this version accept only 1 file. Gallary may be later
+    const file = droppedFiles[0];
+    file.preview = window.URL.createObjectURL(file);
+    
+    this.props.onLoad(file);
+
+  }
+  
+  
+  onDragOver(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+  }
+  
   onDragEnter(e) {
     e.preventDefault();
 
@@ -67,8 +89,10 @@ export default class DragLoader extends Component {
         onClick={this.onClick.bind(this)}
         onDragEnter={this.onDragEnter.bind(this)}
         onDragLeave={this.onDragLeave.bind(this)}
+        onDragOver={this.onDragOver.bind(this)}
+        onDrop={this.onDrop.bind(this)}
         >
-         <input type="file" className={css.welcome_input} ref="fileInput" />
+         <input type="file" className={css.welcome_input} ref="fileInput" onChange={this.onDrop.bind(this)} />
          {text}
       </div>
     );
