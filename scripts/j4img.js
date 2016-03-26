@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 
 import DragLoader from './components/loader.jsx';
+import Editor from './components/editor.jsx';
 
 const css = require('./styles/style.css');
 
-console.log(css);
 
 export default class J4img extends Component {
   
@@ -16,14 +16,13 @@ export default class J4img extends Component {
   
   onLoad(file) {
       this.img = file.preview;
-      
       this.setState({imgLoaded: true});
   }
     
   render() {
       
     const activeComponent = this.state.imgLoaded ? 
-      <img src={this.img} />
+      <Editor img={this.img} />
       :
       <DragLoader onLoad={this.onLoad.bind(this)}/>
       

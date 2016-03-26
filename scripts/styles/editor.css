@@ -1,0 +1,55 @@
+:local .edit_label {
+    color: #fff;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 30px;
+    background: rgba(0, 0, 0, .6);
+    text-align: center;
+    padding-top: 10px;
+    cursor: pointer;
+}
+
+:local .edit_label:hover {
+    background: rgba(0, 0, 0, .8);
+}
+
+:local .editor {
+    background: #333;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+:local .canva {
+    position: absolute;
+    transition: transform .3s ease;
+    transform: scale(1);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    box-shadow: 0 0 6px 1px #000;
+}
+
+:local .canva_small {
+    transform: scale(.7) translateY(-40px);
+}
+
+:local .save_button {
+    color: rgba(255, 255, 255, .5);
+    width: 100%;
+    position: absolute;
+    top: 0;
+    padding-top: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 26px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 300;
+}
+
+:local .save_button:hover {
+    color: #fff;
+}
