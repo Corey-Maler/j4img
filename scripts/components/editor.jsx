@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import Panel from './panel.jsx';
+import ActionPanel from './ActionPanel.jsx';
 
 const css = require('../styles/editor.css');
 
@@ -10,7 +12,8 @@ export default class Editor extends Component {
     
     this.state = {
         smallSize: false,
-        editMode: false
+        editMode: false,
+        subpanel: null
     }
   } 
   
@@ -22,13 +25,37 @@ export default class Editor extends Component {
   save() {
     this.setState({smallSize: false, editMode: false}); 
   }
+  
+  editSize() {
+      const changeVal = (val) => {
+          console.log('bb',
+            this.refs.container.style,
+            val,
+            `scale(${val})`
+          );
+          this.refs.container.style.transform = `scale(${val})`;
+      };
+      
+      const subpanel = {
+        label: "scale",
+        min: 0.5,
+        max: 2,
+        changeVal: changeVal.bind(this), 
+      };
+      this.setState({subpanel});
+  }
     
   render() {
    
     const canvaClass = css.canva + (this.state.smallSize ? " " + css.canva_small : "");  
     
+    const p = this.state.subpanel ? 
+       <ActionPanel data={this.state.subpanel} />
+       :
+       <Panel editSize={this.editSize.bind(this)} /> 
+    
     const panel = this.state.editMode ?
-      null
+      p
       :
       <div className={css.edit_label} onClick={this.openEdit.bind(this)}>Edit</div>;
       

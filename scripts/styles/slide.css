@@ -1,0 +1,21 @@
+:local .slider {
+  width: 100%;
+  position: relative;  
+}
+
+:local .line {
+    position: absolute;
+    top: 50%;
+    border-top: 1px solid rgba(255, 255, 255, .3);
+    width: 100%;
+}
+
+:local .circle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    top: 50%;
+    margin-top: -5px;
+    border-radius: 10px;
+    background: #fff;
+}
