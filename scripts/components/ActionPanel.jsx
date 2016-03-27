@@ -30,6 +30,8 @@ export default class ActionPanel extends Component {
     const labelClassName = css.label + 
       (this.state.isChanging ? " " + css.label_active : "");  
     
+    const saveClassName = css.button + " " + css.saveBtn;
+    
     return (
       <div className={css.panel}>
         <div className={valClassName}>
@@ -48,8 +50,7 @@ export default class ActionPanel extends Component {
           changeState={this.changeState.bind(this)}
           onChange={this.onChange.bind(this)}/>
         
-        <div className={css.button}>
-          OK
+        <div className={saveClassName} onClick={this.props.data.save}>
         </div>
       </div>
     );

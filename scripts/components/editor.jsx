@@ -28,18 +28,18 @@ export default class Editor extends Component {
   
   editSize() {
       const changeVal = (val) => {
-          console.log('bb',
-            this.refs.container.style,
-            val,
-            `scale(${val})`
-          );
           this.refs.container.style.transform = `scale(${val})`;
       };
+      
+      const save = () => {
+          this.setState({subpanel: null});
+      }
       
       const subpanel = {
         label: "scale",
         min: 0.5,
         max: 2,
+        save,
         changeVal: changeVal.bind(this), 
       };
       this.setState({subpanel});
