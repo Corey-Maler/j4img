@@ -1,0 +1,20 @@
+:local .panel {
+    position: absolute;
+    height: 80px;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+:local .item {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+    margin: 0 10px;
+}

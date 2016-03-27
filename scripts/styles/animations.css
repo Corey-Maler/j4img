@@ -1,0 +1,21 @@
+:local .enter_fade {
+  opacity: 0.01;
+  transform: scale(.6) translateY(50px);
+}
+
+:local .enter_fade_active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: all .3s ease-in;
+}
+
+:local .leave_fade {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+:local .leave_fade_active {
+  opacity: 0.01;
+  transform: scale(.6) translateY(-50px);
+  transition: all .2s ease-in;
+}

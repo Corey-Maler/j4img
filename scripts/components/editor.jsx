@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import Panel from './panel.jsx';
 import ActionPanel from './ActionPanel.jsx';
+import EffectsPanel from './EffectsPanel.jsx';
+
+import getFilterCss, {defaultPresets} from '../libs/filters.js';
 
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -38,13 +41,33 @@ export default class Editor extends Component {
           this.setState({subpanel: null});
       }
       
-      const subpanel = {
+      const subpanelData = {
         label: "scale",
         min: 0.5,
         max: 2,
         save,
         changeVal: changeVal.bind(this), 
       };
+      
+      const subpanel = <ActionPanel key="3434" data={subpanelData} />;
+      this.setState({subpanel});
+  }
+  
+  editEffects() {
+      const subpanelData = {
+          presets: defaultPresets,
+          applyEffect: ({preset}) => {
+
+              const filter = getFilterCss(preset);
+              
+              console.log(filter);
+              this.refs.container
+                .setAttribute('style', filter);  
+          }
+      }
+      
+      const subpanel = <EffectsPanel key="aa" data={subpanelData} />;
+      
       this.setState({subpanel});
   }
     
@@ -53,9 +76,12 @@ export default class Editor extends Component {
     const canvaClass = css.canva + (this.state.smallSize ? " " + css.canva_small : "");  
     
     const p = this.state.subpanel ? 
-       <ActionPanel key="3434" data={this.state.subpanel} />
+       this.state.subpanel
        :
-       <Panel key="asdd" editSize={this.editSize.bind(this)} /> 
+       <Panel key="asdd"
+         editSize={this.editSize.bind(this)}
+         editEffects={this.editEffects.bind(this)}
+         /> 
     
     const panel = this.state.editMode ?
       p

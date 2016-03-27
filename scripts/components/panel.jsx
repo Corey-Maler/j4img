@@ -14,11 +14,14 @@ export default class Panel extends Component {
   render() {
     return (
       <div className={css.panel}>
-        <div className={css.button + " " + css.cropBtn} onClick={this.props.editSize}>
+        <div className={css.button + " " + css.cropBtn}
+             onClick={this.props.editSize}>
            <label>Crop</label>
         </div>
         
-        <div className={css.button + " " + css.effectBtn}>
+        <div className={css.button + " " + css.effectBtn}
+             onClick={this.props.editEffects}
+            >
           <label>Effects</label>
         </div>
         
