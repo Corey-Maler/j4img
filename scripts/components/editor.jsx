@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import Panel from './panel.jsx';
 import ActionPanel from './ActionPanel.jsx';
 
-const css = require('../styles/editor.css');
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+
+const css = require('../styles/editor.css');
+const aCss = require('../styles/animations.css');
 
 export default class Editor extends Component {
   
@@ -50,14 +53,14 @@ export default class Editor extends Component {
     const canvaClass = css.canva + (this.state.smallSize ? " " + css.canva_small : "");  
     
     const p = this.state.subpanel ? 
-       <ActionPanel data={this.state.subpanel} />
+       <ActionPanel key="3434" data={this.state.subpanel} />
        :
-       <Panel editSize={this.editSize.bind(this)} /> 
+       <Panel key="asdd" editSize={this.editSize.bind(this)} /> 
     
     const panel = this.state.editMode ?
       p
       :
-      <div className={css.edit_label} onClick={this.openEdit.bind(this)}>Edit</div>;
+      <div key="asdf" className={css.edit_label} onClick={this.openEdit.bind(this)}>Edit</div>;
       
     const saveButton = this.state.editMode ? 
       <div className={css.save_button} onClick={this.save.bind(this)}>Done</div>
@@ -70,7 +73,16 @@ export default class Editor extends Component {
         <div className={canvaClass} ref="canva">
           <img ref="container" src={this.props.img} />
         </div>
-        {panel}
+        <ReactCSSTransitionGroup 
+         transitionName={{
+            enter: aCss.enter_fade,
+            enterActive: aCss.enter_fade_active,
+            leave: aCss.leave_fade,
+            leaveActive: aCss.leave_fade_active,
+         }}
+         transitionEnterTimeout={300} transitionLeaveTimeout={200}>
+          {panel}
+        </ReactCSSTransitionGroup>
       </div>
     );
   }

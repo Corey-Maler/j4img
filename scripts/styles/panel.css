@@ -19,12 +19,24 @@
     
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 40px;
+    background-size: 30px;
     
     opacity: .5;
     cursor: pointer;
     
     flex: 1px auto;
+    margin: 0 10px;
+    position: relative;
+}
+
+:local .button label {
+    font-size: 12px;
+    position: absolute;
+    font-family: Arial, Helvetica, sans-serif;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
 }
 
 :local .button:hover {
@@ -72,4 +84,12 @@
 
 :local .saveBtn {
     background-image: url('../svgs/okay.svg');
+}
+
+:local .cropBtn {
+    background-image: url('../svgs/crop.svg');
+}
+
+:local .effectBtn {
+    background-image: url('../svgs/effects.svg');
 }
