@@ -56,13 +56,28 @@ export default class Editor extends Component {
   editEffects() {
       const subpanelData = {
           presets: defaultPresets,
-          applyEffect: ({preset}) => {
+          applyEffect: ({name, preset}) => {
 
-              const filter = getFilterCss(preset);
+              const applyFilter = (val) => {
+                const filter = getFilterCss(preset, val);
+                
+                this.refs.container
+                  .setAttribute('style', filter);
+              };
               
-              console.log(filter);
-              this.refs.container
-                .setAttribute('style', filter);  
+              applyFilter(0.5);
+              
+              const settingData = {
+                label: name,
+                min: 0,
+                max: 1.5,
+                def: 0.5,
+                save: () => { this.setState({subpanel}) },
+                changeVal: applyFilter, 
+            };
+            
+            const setpanel = <ActionPanel key="3434" data={settingData} />;
+            this.setState({subpanel: setpanel});
           }
       }
       

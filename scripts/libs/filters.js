@@ -5,6 +5,14 @@
  * @param perc Number Percentage (from 0 to 1) of streng of effect
  * @returns string Css filter string
  */
+
+const defaultValues = {
+    saturate: 1,
+    sepia: 0,
+    contrast: 1,
+    brightness: 1,
+}
+
 export default function genFilterCss(props, perc=1) {
     // blur(5px)
     // brighntess(0.5)
@@ -18,7 +26,11 @@ export default function genFilterCss(props, perc=1) {
     let str = "";
     
     for (let prop of Object.keys(props)) {
-        const val = props[prop];
+        let val = props[prop];
+        if (prop in defaultValues) {
+            const zer = defaultValues[prop];
+            val = zer + (val - zer) * perc;
+        }
         str += ` ${prop}(${val})`;
     }
  

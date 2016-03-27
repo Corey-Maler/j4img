@@ -9,7 +9,7 @@ export default class ActionPanel extends Component {
   constructor(props, context) {
     super(props, context);
     
-    this.state = {val: 0,
+    this.state = {val: this.props.data.def,
       isChanging: false,    
     };
   } 
@@ -47,6 +47,7 @@ export default class ActionPanel extends Component {
         <Slider
           min={this.props.data.min}
           max={this.props.data.max}
+          def={this.props.data.def}
           changeState={this.changeState.bind(this)}
           onChange={this.onChange.bind(this)}/>
         

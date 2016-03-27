@@ -15,7 +15,16 @@ export default class Slider extends Component {
   }
   
   componentDidMount() {
-    this.width = this.refs.area.offsetWidth;  
+    this.width = this.refs.area.offsetWidth;
+    
+    this.range = this.props.max - this.props.min;
+    
+    const diff = this.props.def - this.props.min;
+    
+    this.val = diff / this.range;
+    
+    this.pos = this.width * this.val;
+    this.refs.point.style.left = this.pos + "px";
   }
   
   startDrag(e) {
@@ -38,7 +47,7 @@ export default class Slider extends Component {
       
       this.val = this.pos / this.width;
       
-      this.real = this.props.min + (this.props.max - this.props.min) * this.val;
+      this.real = this.props.min + this.range * this.val;
 
       if (this.val > 0 && this.val < 1) {
         this.refs.point.style.left = this.pos + "px";
