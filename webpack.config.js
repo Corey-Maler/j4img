@@ -19,6 +19,10 @@ module.exports = {
       {
         test: /\.(glsl|vs|fs)$/,
         loader: 'shader-loader',
+      },
+      {
+        test: /\.jpg$/,
+        loader: 'file-loader',
       }
     ]
   },

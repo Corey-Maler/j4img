@@ -7,14 +7,19 @@ import {
   resizeCanvasToDisplaySize
 } from "./utils";
 
+import TestImage from '../../test.jpg';
+
 const loadImage = (): Promise<HTMLImageElement> => {
   const promise = new Promise<HTMLImageElement>((res, rej) => {
     const image = new Image();
+    /*
     requestCORSIfNotSameOrigin(
       image,
-      "https://webglfundamentals.org/webgl/resources/leaves.jpg"
+      //"https://webglfundamentals.org/webgl/resources/leaves.jpg"
+      "https://images.unsplash.com/5/unsplash-kitsune-4.jpg?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEyMDd9&s=fb86e2e09fceac9b363af536b93a1275",
     );
-    image.src = "https://webglfundamentals.org/webgl/resources/leaves.jpg";
+    */
+    image.src = TestImage;
     image.onload = function() {
       res(image);
     };
@@ -25,9 +30,9 @@ const loadImage = (): Promise<HTMLImageElement> => {
 
 function setRectangle(gl, x, y, width, height) {
   var x1 = x;
-  var x2 = x + width;
+  var x2 = Math.min(x + width, 500);
   var y1 = y;
-  var y2 = y + height;
+  var y2 = Math.min(y + height, 500);
   gl.bufferData(
     gl.ARRAY_BUFFER,
     new Float32Array([x1, y1, x2, y1, x1, y2, x1, y2, x2, y1, x2, y2]),

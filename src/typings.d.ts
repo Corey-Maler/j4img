@@ -7,3 +7,8 @@ declare module '*.fs' {
   const _: string;
   export default _;
 }
+
+declare module '*.jpg' {
+  const _: string;
+  export default _;
+}
