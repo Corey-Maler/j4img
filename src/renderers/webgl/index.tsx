@@ -50,6 +50,7 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
 
   private program: any;
   private brLocation: any;
+  private offsetLocation: any;
   private scale: number = 0;
   private positionLocation: any;
   private positionBuffer: any;
@@ -126,6 +127,7 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
 
     this.brLocation = gl.getUniformLocation(program, "brightness");
+    this.offsetLocation = gl.getUniformLocation(program, 'offset');
 
     
     // lookup uniforms
@@ -151,6 +153,7 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
     // Tell it to use our program (pair of shaders)
     gl.useProgram(program);
     gl.uniform1f(this.brLocation, this.scale);
+    gl.uniform1f(this.offsetLocation, this.scale);
 
     // Turn on the position attribute
     gl.enableVertexAttribArray(this.positionLocation);
