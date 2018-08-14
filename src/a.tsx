@@ -8,6 +8,7 @@ import { ImagePlacement } from "./types";
 import { Base } from "./overlays/base";
 import { FullOverlay } from "./overlays/full";
 import { ResizeOverlay } from "./overlays/resize";
+import { WebGLRenderer } from "./renderers/webgl";
 
 const Root = styled("div")`
   width: 100%;
@@ -78,7 +79,8 @@ export class A extends React.Component<{}, JS4ImgState> {
     const imagePlacement: ImagePlacement = (mode === 'inplace' || mode === 'resize') ? 'full' : 'left';
     return (
       <Root>
-        <Renderer ip={imagePlacement} changes={this.state.changes} />
+        { /* <Renderer ip={imagePlacement} changes={this.state.changes} /> */ }
+        <WebGLRenderer />
         { mode === 'inplace' &&
           <InPlace onClick={this.enterBaseMode} />
         }
