@@ -103,20 +103,24 @@ export class WebGLRenderer extends React.Component {
     // Upload the image into the texture.
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
 
+    const brLocation = gl.getUniformLocation(program, "brightness");
+
+    
     // lookup uniforms
     var resolutionLocation = gl.getUniformLocation(program, "u_resolution");
-
+    
     resizeCanvasToDisplaySize(gl.canvas);
-
+    
     // Tell WebGL how to convert from clip space to pixels
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-
+    
     // Clear the canvas
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
-
+    
     // Tell it to use our program (pair of shaders)
     gl.useProgram(program);
+    gl.uniform1f(brLocation, 0.2);
 
     // Turn on the position attribute
     gl.enableVertexAttribArray(positionLocation);
