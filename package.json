@@ -1,0 +1,24 @@
+{
+  "name": "j4img",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Corey Maler",
+  "license": "MIT",
+  "scripts": {
+    "start": "styleguidist server --config styleguide.config.js"
+  },
+  "devDependencies": {
+    "@types/react": "^16.4.9",
+    "react-docgen-typescript": "^1.6.3",
+    "react-styleguidist": "^7.2.2",
+    "ts-loader": "^4.4.2",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.5"
+  },
+  "dependencies": {
+    "emotion": "^9.2.6",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "react-emotion": "^9.2.6"
+  }
+}
