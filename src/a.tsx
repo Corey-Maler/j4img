@@ -13,6 +13,7 @@ import { WebGLRenderer } from "./renderers/webgl";
 const Root = styled("div")`
   width: 100%;
   position: relative;
+  background: #666;
 ` as any;
 
 const OverlayRight = styled('div')`
