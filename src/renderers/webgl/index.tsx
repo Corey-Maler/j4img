@@ -35,8 +35,22 @@ function setRectangle(gl, x, y, width, height) {
   );
 }
 
-export class WebGLRenderer extends React.Component {
+interface WebGLRendererProps {
+  state: any;
+}
+
+export class WebGLRenderer extends React.Component<WebGLRendererProps> {
   private canvas: HTMLCanvasElement | null = null;
+  private gl: WebGLRenderingContext | undefined;
+
+  private program: any;
+  private brLocation: any;
+  private scale: number = 0;
+  private positionLocation: any;
+  private positionBuffer: any;
+  private resolutionLocation: any;
+  private texcoordLocation: any;
+  private texcoordBuffer: any;
 
   public componentDidMount() {
     this.process(loadImage());
@@ -53,24 +67,27 @@ export class WebGLRenderer extends React.Component {
       return;
     }
 
-    const program = createProgram(gl);
+    this.gl = gl;
 
-    var positionLocation = gl.getAttribLocation(program, "a_position");
-    var texcoordLocation = gl.getAttribLocation(program, "a_texCoord");
+    const program = createProgram(gl);
+    this.program = program;
+
+    this.positionLocation = gl.getAttribLocation(program, "a_position");
+    this.texcoordLocation = gl.getAttribLocation(program, "a_texCoord");
 
     // Create a buffer to put three 2d clip space points in
-    var positionBuffer = gl.createBuffer();
+    this.positionBuffer = gl.createBuffer();
 
     // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
     // Set a rectangle the same size as the image.
     setRectangle(gl, 0, 0, image.width, image.height);
 
     console.log("image width", image.width, image.height);
 
     // provide texture coordinates for the rectangle.
-    var texcoordBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
+    this.texcoordBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.texcoordBuffer);
     gl.bufferData(
       gl.ARRAY_BUFFER,
       new Float32Array([
@@ -103,12 +120,20 @@ export class WebGLRenderer extends React.Component {
     // Upload the image into the texture.
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
 
-    const brLocation = gl.getUniformLocation(program, "brightness");
+    this.brLocation = gl.getUniformLocation(program, "brightness");
 
     
     // lookup uniforms
-    var resolutionLocation = gl.getUniformLocation(program, "u_resolution");
-    
+    this.resolutionLocation = gl.getUniformLocation(program, "u_resolution");
+    this.redraw();
+  }
+
+  private redraw() {
+    const gl = this.gl;
+    const program = this.program;
+    if (!gl) {
+      return;
+    }
     resizeCanvasToDisplaySize(gl.canvas);
     
     // Tell WebGL how to convert from clip space to pixels
@@ -120,13 +145,13 @@ export class WebGLRenderer extends React.Component {
     
     // Tell it to use our program (pair of shaders)
     gl.useProgram(program);
-    gl.uniform1f(brLocation, 0.2);
+    gl.uniform1f(this.brLocation, this.scale);
 
     // Turn on the position attribute
-    gl.enableVertexAttribArray(positionLocation);
+    gl.enableVertexAttribArray(this.positionLocation);
 
     // Bind the position buffer.
-    gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.positionBuffer);
 
     // Tell the position attribute how to get data out of positionBuffer (ARRAY_BUFFER)
     var size = 2; // 2 components per iteration
@@ -135,7 +160,7 @@ export class WebGLRenderer extends React.Component {
     var stride = 0; // 0 = move forward size * sizeof(type) each iteration to get the next position
     var offset = 0; // start at the beginning of the buffer
     gl.vertexAttribPointer(
-      positionLocation,
+      this.positionLocation,
       size,
       type,
       normalize,
@@ -144,10 +169,10 @@ export class WebGLRenderer extends React.Component {
     );
 
     // Turn on the teccord attribute
-    gl.enableVertexAttribArray(texcoordLocation);
+    gl.enableVertexAttribArray(this.texcoordLocation);
 
     // Bind the position buffer.
-    gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
+    gl.bindBuffer(gl.ARRAY_BUFFER, this.texcoordBuffer);
 
     // Tell the position attribute how to get data out of positionBuffer (ARRAY_BUFFER)
     var size = 2; // 2 components per iteration
@@ -156,7 +181,7 @@ export class WebGLRenderer extends React.Component {
     var stride = 0; // 0 = move forward size * sizeof(type) each iteration to get the next position
     var offset = 0; // start at the beginning of the buffer
     gl.vertexAttribPointer(
-      texcoordLocation,
+      this.texcoordLocation,
       size,
       type,
       normalize,
@@ -165,13 +190,19 @@ export class WebGLRenderer extends React.Component {
     );
 
     // set the resolution
-    gl.uniform2f(resolutionLocation, gl.canvas.width, gl.canvas.height);
+    gl.uniform2f(this.resolutionLocation, gl.canvas.width, gl.canvas.height);
 
     // Draw the rectangle.
     var primitiveType = gl.TRIANGLES;
     var offset = 0;
     var count = 6;
     gl.drawArrays(primitiveType, offset, count);
+  }
+
+  componentWillReceiveProps(nextProps: WebGLRendererProps) {
+    const scale = nextProps.state.scale;
+    this.scale = scale;
+    this.redraw();
   }
 
   public render() {

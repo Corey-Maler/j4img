@@ -53,10 +53,6 @@ const MinMax = styled('div')`
   opacity: ${(props: any) => props.opacity};
 ` as any;
 
-interface SliderState {
-  position: number;
-}
-
 interface SliderProps {
   min: number;
   max: number;
@@ -65,15 +61,11 @@ interface SliderProps {
   onSubmit: () => void;
 }
 
-export class Slider extends React.Component<SliderProps, SliderState> {
+export class Slider extends React.Component<SliderProps> {
   private oldX: number = 0;
 
   constructor(props: any) {
     super(props);
-
-    this.state = {
-      position: 0,
-    }
   }
 
   private onMouseDown = (e: React.MouseEvent) => {
@@ -140,7 +132,7 @@ export class Slider extends React.Component<SliderProps, SliderState> {
       <Bar left={0} width={position - handleWidth / 2 - handleMargin} />
       <Bar left={rightBarP} width={width - rightBarP} />
       <Handle onMouseDown={this.onMouseDown} left={position - handleWidth / 2} />
-      <Value left={position - 20}>{value.toFixed(0)}</Value>
+      <Value left={position - 20}>{value.toFixed(2)}</Value>
       <MinMax min opacity={minOpacity}>{min.toFixed(0)}</MinMax>
       <MinMax opacity={maxOpacity}>{max.toFixed(0)}</MinMax>
     </Root>)

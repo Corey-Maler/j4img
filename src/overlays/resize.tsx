@@ -22,7 +22,7 @@ export class ResizeOverlay extends React.Component<ResizeOverlayProps> {
   public render() {
     return (
       <div style={{ textAlign: "center", margin: 20 }}>
-        <Slider onSubmit={this.onSubmit} min={1} max={10} value={this.props.changes.scale} onChange={this.setScale} />
+        <Slider onSubmit={this.onSubmit} min={-1} max={1} value={this.props.changes.scale} onChange={this.setScale} />
       </div>
     );
   }

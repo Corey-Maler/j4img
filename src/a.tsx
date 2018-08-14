@@ -37,7 +37,7 @@ export class A extends React.Component<{}, JS4ImgState> {
     super(props);
 
     this.state = {
-      mode: 'inplace',
+      mode: 'resize',//'inplace',
       changes: {
         scale: 1,
       },
@@ -80,7 +80,7 @@ export class A extends React.Component<{}, JS4ImgState> {
     return (
       <Root>
         { /* <Renderer ip={imagePlacement} changes={this.state.changes} /> */ }
-        <WebGLRenderer />
+        <WebGLRenderer state={this.state.changes} />
         { mode === 'inplace' &&
           <InPlace onClick={this.enterBaseMode} />
         }
