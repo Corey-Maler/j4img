@@ -158,8 +158,6 @@ export class ResizeOverlay extends React.Component<ResizeOverlayProps> {
         >
           <MoveIt onMove={this.onMove} />
         </div>
-        <button onClick={this.moveLeft}>left</button>
-        <button>down</button>
       </div>
     );
   }
