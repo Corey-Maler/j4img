@@ -4,7 +4,7 @@ import "emotion";
 import styled from "react-emotion";
 import { Renderer } from "./renderer";
 import { InPlace } from "./overlays/in-place";
-import { ImagePlacement } from "./types";
+import { ImagePlacement, Changes } from "./types";
 import { Base } from "./overlays/base";
 import { FullOverlay } from "./overlays/full";
 import { ResizeOverlay } from "./overlays/resize";
@@ -29,7 +29,7 @@ const H = styled('div')`
 
 interface JS4ImgState {
   mode: 'inplace' | 'base' | 'resize' | 'advanced';
-  changes: any;
+  changes: Changes;
 }
 
 export class A extends React.Component<{}, JS4ImgState> {
@@ -40,7 +40,14 @@ export class A extends React.Component<{}, JS4ImgState> {
     this.state = {
       mode: 'resize',//'inplace',
       changes: {
-        scale: 1,
+        resize: {
+          scale: 1,
+          offset: { x: 0, y: 0 },
+          rotation: 0,
+        },
+        color: {
+          brightness: 0,
+        }
       },
     }
   }

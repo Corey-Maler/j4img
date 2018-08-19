@@ -8,6 +8,7 @@ import {
 } from "./utils";
 
 import TestImage from '../../test.jpg';
+import { Changes, ResizeObject } from "../../types";
 
 const loadImage = (): Promise<HTMLImageElement> => {
   const promise = new Promise<HTMLImageElement>((res, rej) => {
@@ -41,7 +42,7 @@ function setRectangle(gl, x, y, width, height) {
 }
 
 interface WebGLRendererProps {
-  state: any;
+  state: Changes;
 }
 
 export class WebGLRenderer extends React.Component<WebGLRendererProps> {
@@ -51,6 +52,7 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
   private program: any;
   private brLocation: any;
   private offsetLocation: any;
+  private scaleLocation: any;
   private scale: number = 0;
   private positionLocation: any;
   private positionBuffer: any;
@@ -58,7 +60,10 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
   private texcoordLocation: any;
   private texcoordBuffer: any;
 
+  private resize: ResizeObject;
+
   public componentDidMount() {
+    this.resize = this.props.state.resize;
     this.process(loadImage());
   }
 
@@ -128,6 +133,7 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
 
     this.brLocation = gl.getUniformLocation(program, "brightness");
     this.offsetLocation = gl.getUniformLocation(program, 'offset');
+    this.scaleLocation = gl.getUniformLocation(program, 'scale');
 
     
     // lookup uniforms
@@ -152,8 +158,9 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
     
     // Tell it to use our program (pair of shaders)
     gl.useProgram(program);
-    gl.uniform1f(this.brLocation, this.scale);
-    gl.uniform1f(this.offsetLocation, this.scale);
+    gl.uniform1f(this.brLocation, this.props.state.color.brightness);
+    gl.uniform1f(this.offsetLocation, this.resize.offset.x);
+    gl.uniform1f(this.scaleLocation, this.resize.scale as number);
 
     // Turn on the position attribute
     gl.enableVertexAttribArray(this.positionLocation);
@@ -208,8 +215,9 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
   }
 
   componentWillReceiveProps(nextProps: WebGLRendererProps) {
-    const scale = nextProps.state.scale;
+    const scale = nextProps.state.resize.scale as number;
     this.scale = scale;
+    this.resize = nextProps.state.resize;
     this.redraw();
   }
 
