@@ -2,8 +2,9 @@ attribute vec2 a_position;
 attribute vec2 a_texCoord;
 
 uniform vec2 u_resolution;
-uniform float offset;
+uniform vec2 offset;
 uniform float scale;
+uniform float rotation;
 
 varying vec2 v_texCoord;
 
@@ -21,5 +22,11 @@ void main() {
 
    // pass the texCoord to the fragment shader
    // The GPU will interpolate this value between points.
-   v_texCoord = (1.0 - 1.0 / scale) * offset + a_texCoord / scale;
+   vec2 v_texCoord_temp = (1.0 - 1.0 / scale) * offset + a_texCoord / scale;
+   mat2 rot;
+   float t = rotation;
+   rot[0] = vec2(cos(t), -sin(t));
+   rot[1] = vec2(sin(t), cos(t));
+   vec2 of = (1.0 - 1.0 / scale) * offset + (1.0  / scale) / 2.0;
+   v_texCoord = (v_texCoord_temp - of) * rot + of;
 }

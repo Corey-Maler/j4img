@@ -71,7 +71,7 @@ export class ResizeOverlay extends React.Component<ResizeOverlayProps> {
         <Labeled title="scale">
           <Slider onSubmit={this.onSubmit} min={1} max={4} value={scale as number} onChange={this.setScale} />
         </Labeled>
-         <Labeled title="Offset y">
+         <Labeled title="Rotate">
           <Slider onSubmit={this.onSubmit} min={0} max={360} value={rotation} onChange={this.setRotation} />
         </Labeled>
       </div>

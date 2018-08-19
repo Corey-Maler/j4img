@@ -55,6 +55,7 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
   private scaleLocation: any;
   private scale: number = 0;
   private positionLocation: any;
+  private rotationLocation: any;
   private positionBuffer: any;
   private resolutionLocation: any;
   private texcoordLocation: any;
@@ -134,6 +135,7 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
     this.brLocation = gl.getUniformLocation(program, "brightness");
     this.offsetLocation = gl.getUniformLocation(program, 'offset');
     this.scaleLocation = gl.getUniformLocation(program, 'scale');
+    this.rotationLocation = gl.getUniformLocation(program, 'rotation');
 
     
     // lookup uniforms
@@ -159,8 +161,9 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
     // Tell it to use our program (pair of shaders)
     gl.useProgram(program);
     gl.uniform1f(this.brLocation, this.props.state.color.brightness);
-    gl.uniform1f(this.offsetLocation, this.resize.offset.x);
+    gl.uniform2f(this.offsetLocation, this.resize.offset.x, this.resize.offset.y);
     gl.uniform1f(this.scaleLocation, this.resize.scale as number);
+    gl.uniform1f(this.rotationLocation, this.resize.rotation / 360 * 2 * Math.PI);
 
     // Turn on the position attribute
     gl.enableVertexAttribArray(this.positionLocation);
