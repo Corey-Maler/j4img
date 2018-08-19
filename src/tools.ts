@@ -1,0 +1,1 @@
+export const nor = (x: number) => Math.max(0, Math.min(x));
