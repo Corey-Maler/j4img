@@ -3,6 +3,7 @@ import { Slider } from "../controls/slider";
 import { Labeled } from "../controls/labeled";
 import { Changes } from "../types";
 import { nor } from "../tools";
+import { MoveIt } from "./moveit";
 
 interface ResizeOverlayProps {
   changes: Changes;
@@ -53,8 +54,8 @@ export class ResizeOverlay extends React.Component<ResizeOverlayProps> {
     });
   }
 
-  private moveLeft = () => {
-    const shift = 0.05;
+  private moveLeft = (x) => {
+    const shift = x;
 
     const v = {...this.props.changes.resize.offset};
     const res = this.props.changes.resize.rotation / 360 * (2 * Math.PI);
@@ -69,6 +70,11 @@ export class ResizeOverlay extends React.Component<ResizeOverlayProps> {
         offset: v,
       }
     })
+  }
+
+  private onMove = (x) => {
+    const s = this.props.changes.resize.scale as number;
+    this.moveLeft(x / (s - 0.99));
   }
 
   private onSubmit = () => {
@@ -93,6 +99,15 @@ export class ResizeOverlay extends React.Component<ResizeOverlayProps> {
          <Labeled title="Rotate">
           <Slider onSubmit={this.onSubmit} min={0} max={360} value={rotation} onChange={this.setRotation} />
         </Labeled>
+        <div style={{
+          position: 'absolute',
+          left: 0,
+          top: 0,
+          bottom: 0,
+          width: 500,
+        }}>
+          <MoveIt onMove={this.onMove} />
+        </div>
         <button onClick={this.moveLeft}>left</button>
         <button>down</button>
       </div>
