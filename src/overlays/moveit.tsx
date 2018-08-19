@@ -9,6 +9,7 @@ interface MoveItProps {
 export class MoveIt extends React.Component<MoveItProps> {
 
     private oldX: number;
+    private oldY: number;
     private node: any;
 
     private onMouseDown = (e) => {
@@ -16,21 +17,26 @@ export class MoveIt extends React.Component<MoveItProps> {
         window.addEventListener('mouseup', this.onMouseUp);
 
         this.oldX = e.clientX;
+        this.oldY = e.clientY;
     }
 
     private onMouseMove = (e) => {
         const oldX = this.oldX;
+        const oldY = this.oldY;
         const x = e.clientX;
+        const y = e.clientY;
         
         if (this.node) {
             const w = this.node.offsetWidth;
-            const diff = (oldX - x) / w;
+            const h = this.node.offsetHeight;
+            const diffX = (oldX - x) / w;
+            const diffY = (oldY - y) / h;
 
-            console.log('diff', diff);
-            this.props.onMove(diff);
+            this.props.onMove(diffX, diffY);
         }
 
         this.oldX = x;
+        this.oldY = y;
     }
 
     private onMouseUp = (e) => {
