@@ -7,7 +7,7 @@ import {
   resizeCanvasToDisplaySize
 } from "./utils";
 
-import TestImage from '../../test.jpg';
+import TestImage from "../../test.jpg";
 import { Changes, ResizeObject } from "../../types";
 
 const loadImage = (): Promise<HTMLImageElement> => {
@@ -74,7 +74,7 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
       return;
     }
 
-    const gl = this.canvas.getContext("webgl");
+    const gl = this.canvas.getContext("webgl", { preserveDrawingBuffer: true });
     if (!gl) {
       return;
     }
@@ -133,11 +133,10 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
 
     this.brLocation = gl.getUniformLocation(program, "brightness");
-    this.offsetLocation = gl.getUniformLocation(program, 'offset');
-    this.scaleLocation = gl.getUniformLocation(program, 'scale');
-    this.rotationLocation = gl.getUniformLocation(program, 'rotation');
+    this.offsetLocation = gl.getUniformLocation(program, "offset");
+    this.scaleLocation = gl.getUniformLocation(program, "scale");
+    this.rotationLocation = gl.getUniformLocation(program, "rotation");
 
-    
     // lookup uniforms
     this.resolutionLocation = gl.getUniformLocation(program, "u_resolution");
     this.redraw();
@@ -150,20 +149,27 @@ export class WebGLRenderer extends React.Component<WebGLRendererProps> {
       return;
     }
     resizeCanvasToDisplaySize(gl.canvas);
-    
+
     // Tell WebGL how to convert from clip space to pixels
     gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
-    
+
     // Clear the canvas
     gl.clearColor(0, 0, 0, 0);
     gl.clear(gl.COLOR_BUFFER_BIT);
-    
+
     // Tell it to use our program (pair of shaders)
     gl.useProgram(program);
     gl.uniform1f(this.brLocation, this.props.state.color.brightness);
-    gl.uniform2f(this.offsetLocation, this.resize.offset.x, this.resize.offset.y);
+    gl.uniform2f(
+      this.offsetLocation,
+      this.resize.offset.x,
+      this.resize.offset.y
+    );
     gl.uniform1f(this.scaleLocation, this.resize.scale as number);
-    gl.uniform1f(this.rotationLocation, this.resize.rotation / 360 * 2 * Math.PI);
+    gl.uniform1f(
+      this.rotationLocation,
+      (this.resize.rotation / 360) * 2 * Math.PI
+    );
 
     // Turn on the position attribute
     gl.enableVertexAttribArray(this.positionLocation);
